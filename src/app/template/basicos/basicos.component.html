@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col">
     <form
-      (ngSubmit)="guardar(miFormulario)"
+      (ngSubmit)="guardar()"
       #miFormulario="ngForm"
       autocomplete="off"
     >
@@ -17,11 +17,17 @@
             type="text"
             class="form-control"
             placeholder="Nombre del producto"
-            ngModel
+            [ngModel]="initForm.producto"
             name="producto"
             required
+            minlength="3"
           >
-          <span class="form-text text-danger" >Debe der de 3 letras</span>
+          <span
+            class="form-text text-danger"
+            *ngIf="nombreValido()"
+          >
+            Debe der de 3 letras
+          </span>
         </div>
       </div>
 
@@ -34,11 +40,17 @@
             type="number"
             class="form-control"
             placeholder="Precio del producto"
-            ngModel
+            [ngModel]="initForm.precio"
             name="precio"
             required
+            min="0"
           >
-          <span class="form-text text-danger" >Debe der mayor de 0</span>
+          <span
+            class="form-text text-danger"
+            *ngIf="precioValido()"
+          >
+            El precio debe ser mayor de 0
+          </span>
         </div>
       </div>
 
@@ -51,9 +63,11 @@
             type="number"
             class="form-control"
             placeholder="Existencias del producto"
-            ngModel
+            [ngModel]="initForm.existencias"
             name="existencias"
             required
+            customMin
+            [minimo]="0"
           >
         </div>
       </div>
@@ -63,6 +77,7 @@
           <button
             type="submit"
             class="btn btn-primary float-end"
+            [disabled]="miFormulario.invalid"
           >
             Guardar
           </button>

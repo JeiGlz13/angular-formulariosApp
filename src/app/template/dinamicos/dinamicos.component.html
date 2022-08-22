@@ -1,1 +1,92 @@
-<p>dinamicos works!</p>
+<h1>Template: <small> Dinámicos</small></h1>
+<hr>
+
+<form
+  (ngSubmit)="guardar()"
+  #formularioDinamico="ngForm"
+>
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Nombre: </label>
+    <div class="col-sm-9">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Nombre de la persona"
+        [ngModel]="persona.nombre"
+        ngModel
+        name="nombre"
+        required
+      >
+
+      <span
+        class="form-text text-danger"
+        *ngIf=
+          "
+            formularioDinamico.form.controls['nombre']?.touched &&
+            formularioDinamico.form.controls['nombre']?.invalid
+          "
+      >
+        Este campo es requerido
+      </span>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Agregar</label>
+
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Agregar favorito"
+        [(ngModel)]="nuevoJuego"
+        (keyup.enter)="agregarJuego()"
+        name="nuevoJuego"
+      >
+
+      <button
+        class="btn btn-outline-primary"
+        type="button"
+        (click)="agregarJuego()"
+      >
+        Agregar
+      </button>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <label class="col-sm-12 col-form-label">Favoritos</label>
+    <div
+      class="input-group mb-2"
+      *ngFor="let favorito of persona.favoritos; let i = index"
+    >
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="favorito.nombre"
+        name="nombre_{{i}}"
+      >
+
+      <button
+        class="btn btn-outline-danger"
+        type="button"
+        (click)="eliminar(i)"
+      >
+        Borrar
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <button
+        type="button"
+        class="btn btn-primary float-end mt-4"
+        (click)="guardar()"
+        [disabled]="formularioDinamico.invalid"
+      >
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>
