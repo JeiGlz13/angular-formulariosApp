@@ -1,7 +1,7 @@
 <h2>Reactive: Switches</h2>
 <hr>
 
-<form >
+<form [formGroup]="miFormulario">
   <div class="row mb-3">
     <label class="col-sm-3 col-form-label">Género</label>
 
@@ -10,7 +10,8 @@
         <input
           class="form-check-input"
           type="radio"
-          name="radioGenero"
+          value="M"
+          formControlName="genero"
           id="radioMasculino"
         >
         <label class="form-check-label" for="radioMasculino">
@@ -22,7 +23,8 @@
         <input
           class="form-check-input"
           type="radio"
-          name="radioGenero"
+          value="F"
+          formControlName="genero"
           id="radioFemenino"
         >
         <label class="form-check-label" for="radioFemenino">
@@ -42,6 +44,7 @@
           type="checkbox"
           role="switch"
           id="flexSwitchCheckDefault"
+          formControlName="notificaciones"
         >
         <label class="form-check-label" for="flexSwitchCheckDefault">Quiero recibir notificaciones</label>
       </div>
@@ -57,6 +60,7 @@
           class="form-check-input"
           type="checkbox"
           id="flexCheckDefault"
+          formControlName="condiciones"
         >
         <label
           class="form-check-label"
@@ -72,6 +76,7 @@
     <div class="col">
       <button
         class="btn btn-primary float-end"
+        (click)="guardar()"
       >
         Guardar
       </button>
